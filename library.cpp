@@ -1,4 +1,44 @@
-//................*DSU.....................
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace std;
+using namespace __gnu_pbds;
+#define asc(i,a,n) for(I i=a;i<n;i++)
+#define dsc(i,a,n) for(I i=n-1;i>=a;i--)
+#define forw(it,x) for(A it=(x).begin();it!=(x).end();it++)
+#define bacw(it,x) for(A it=(x).rbegin();it!=(x).rend();it++)
+#define pb push_back
+#define mp make_pair
+#define fi first
+#define se second
+#define lb(x) lower_bound(x)
+#define ub(x) upper_bound(x)
+#define fbo(x) find_by_order(x)
+#define ook(x) order_of_key(x)
+#define all(x) (x).begin(),(x).end()
+#define sz(x) (I)((x).size())
+#define clr(x) (x).clear()
+#define U unsigned
+#define I long long int
+#define S string
+#define C char
+#define D long double
+#define A auto
+#define B bool
+#define V(x) vector<x>
+#define P(x,y) pair<x,y>
+#define OS(x) set<x>
+#define US(x) unordered_set<x>
+#define OMS(x) multiset<x>
+#define UMS(x) unordered_multiset<x>
+#define OM(x,y) map<x,y>
+#define UM(x,y) unordered_map<x,y>
+#define OMM(x,y) multimap<x,y>
+#define UMM(x,y) unordered_multimap<x,y>
+#define L(x) list<x>
+#define PBS(x) tree<x,null_type,less<I>,rb_tree_tag,tree_order_statistics_node_update>
+#define PBM(x,y) tree<x,y,less<I>,rb_tree_tag,tree_order_statistics_node_update>
+//................DSU.....................
 
 class DSU{
 private:
@@ -33,7 +73,7 @@ public:
   }
 };
 
-//...............*mod...................
+//...............Mod...................
 
 I modex(I a,I b,I m){
   a=a%m;
@@ -57,7 +97,7 @@ I mod(I a,I b,I m){
   return (a*c)%m;
 }
 
-//.............*segment tree..................
+//.............Segment Tree..................
 
 class seg{
 public:
@@ -138,7 +178,7 @@ public:
   }
 };
 
-//.............*minimum spanning tree.............
+//.............Minimum Spanning Tree.............
 
 I mntree(V(P(I,I)) gr[],V(P(I,I)) tr[],I n){
   DSU d(n);
@@ -167,7 +207,7 @@ I mntree(V(P(I,I)) gr[],V(P(I,I)) tr[],I n){
   }
   return tot;
 }
-//................*convex hull....................
+//................Convex Hull....................
 
 B up(P(I,I) a, P(I,I) b, P(I,I) c){
   return a.fi*(b.se-c.se)+b.fi*(c.se-a.se)+c.fi*(a.se-b.se)<=0;
@@ -213,4 +253,39 @@ void chull(V(P(I,I)) a,V(P(I,I)) &b) {
   }
 }
 
+//....................Binary Search................
 
+B check(I x){
+  return true;
+}
+I bins(I l,I r){
+  if(r-l<2){
+    if(check(r)){
+      return r;
+    }else{
+      return l;
+    }
+  }
+  I mid=(r+l)/2;
+  if(check(mid)){
+    return bins(mid,r);
+  }else{
+    return bins(l,mid-1);
+  }
+}
+
+
+
+
+
+
+//.......................Main........................
+int main(){
+  ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+  #ifndef ONLINE_JUDGE
+  freopen("input.txt", "r", stdin);
+  freopen("output.txt", "w", stdout);
+  #endif
+  
+  return 0;
+}
