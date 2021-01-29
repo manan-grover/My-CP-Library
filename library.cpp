@@ -38,6 +38,7 @@ using namespace __gnu_pbds;
 #define L(x) list<x>
 #define PBS(x) tree<x,null_type,less<I>,rb_tree_tag,tree_order_statistics_node_update>
 #define PBM(x,y) tree<x,y,less<I>,rb_tree_tag,tree_order_statistics_node_update>
+
 //................DSU.....................
 
 class DSU{
@@ -207,6 +208,7 @@ I mntree(V(P(I,I)) gr[],V(P(I,I)) tr[],I n){
   }
   return tot;
 }
+
 //................Convex Hull....................
 
 B up(P(I,I) a, P(I,I) b, P(I,I) c){
@@ -274,7 +276,36 @@ I bins(I l,I r){
   }
 }
 
+//...................Ternary Search....................
 
+I func(I x){
+  return 0;
+}
+I trins(I l,I r){
+  if(r-l<3){
+    I val=func(l);
+    I ans=l;
+    asc(i,l+1,r+1){
+      I x=func(i);
+      if(val<x){
+        val=x;
+        ans=i;
+      }
+    }
+    return ans;
+  }
+  I m1=(2*l+r)/3;
+  I m2=(l+2*r)/3;
+  I f1=func(m1);
+  I f2=func(m2);
+  if(f1<f2){
+    return trins(m1+1,m2);
+  }else if(f1>f2){
+    return trins(m1,m2-1);
+  }else{
+    return trins(m1+1,m2-1);
+  }
+}
 
 
 
