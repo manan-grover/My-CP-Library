@@ -211,39 +211,46 @@ I mntree(V(P(I,I)) gr[],V(P(I,I)) tr[],I n){
 
 //................Convex Hull....................
 
-B up(P(I,I) a, P(I,I) b, P(I,I) c){
-  return a.fi*(b.se-c.se)+b.fi*(c.se-a.se)+c.fi*(a.se-b.se)<=0;
+I pos(P(I,I) a, P(I,I) b, P(I,I) c){
+  if(a.fi*(b.se-c.se)+b.fi*(c.se-a.se)+c.fi*(a.se-b.se)<0){
+    return 1;
+  }else if(a.fi*(b.se-c.se)+b.fi*(c.se-a.se)+c.fi*(a.se-b.se)>0){
+    return -1;
+  }else{
+    return 0;
+  }
 }
-B dwn(P(I,I) a, P(I,I) b, P(I,I) c){
-  return a.fi*(b.se-c.se)+b.fi*(c.se-a.se)+c.fi*(a.se-b.se)>=0;
-}
-void chull(V(P(I,I)) a,V(P(I,I)) &b) {
+void chull(V(P(I,I)) a,V(P(I,I)) &b,B f) {
   if (a.size()==1){
     b=a;
     return;
   }
+  I xx=0;
+  if(f){
+    xx++;
+  }
   sort(all(a));
-  P(I,I) p1 = a[0], p2 = a.back();
+  P(I,I) p1=a[0],p2=a.back();
   V(P(I,I)) u,d;
   u.pb(p1);
   d.pb(p1);
   asc(i,1,sz(a)-1){
-    if(up(p1,a[i],p2)){
-      while(sz(u)>=2 && !up(u[sz(u)-2],u[sz(u)-1],a[i])){
+    if(pos(p1,a[i],p2)>-xx){
+      while(sz(u)>=2 && pos(u[sz(u)-2],u[sz(u)-1],a[i])<1-xx){
         u.pop_back();
       }
       u.pb(a[i]);
-    }else if(dwn(p1,a[i],p2)){
-      while(sz(d)>=2 && !dwn(d[sz(d)-2],d[sz(d)-1],a[i])){
+    }else if(pos(p1,a[i],p2)<xx){
+      while(sz(d)>=2 && pos(d[sz(d)-2],d[sz(d)-1],a[i])>xx-1){
         d.pop_back();
       }
       d.pb(a[i]);
     }
   }
-  while(sz(u)>=2 && !up(u[sz(u)-2],u[sz(u)-1],p2)){
+  while(sz(u)>=2 && pos(u[sz(u)-2],u[sz(u)-1],p2)<1-xx){
     u.pop_back();
   }
-  while(sz(d)>=2 && !dwn(d[sz(d)-2],d[sz(d)-1],p2)){
+  while(sz(d)>=2 && pos(d[sz(d)-2],d[sz(d)-1],p2)>xx-1){
     d.pop_back();
   }
   u.pb(p2);
