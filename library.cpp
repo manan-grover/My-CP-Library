@@ -25,6 +25,7 @@ using namespace __gnu_pbds;
 #define D long double
 #define A auto
 #define B bool
+#define CM(x) complex<x>
 #define V(x) vector<x>
 #define P(x,y) pair<x,y>
 #define OS(x) set<x>
@@ -38,7 +39,8 @@ using namespace __gnu_pbds;
 #define L(x) list<x>
 #define PBS(x) tree<x,null_type,less<I>,rb_tree_tag,tree_order_statistics_node_update>
 #define PBM(x,y) tree<x,y,less<I>,rb_tree_tag,tree_order_statistics_node_update>
-
+#define pi (D)acos(-1)
+#define md 1000000007
 //................DSU.....................
 
 class DSU{
