@@ -43,6 +43,7 @@ using namespace __gnu_pbds;
 #define PBM(x,y) tree<x,y,less<I>,rb_tree_tag,tree_order_statistics_node_update>
 #define pi (D)acos(-1)
 #define md 1000000007
+
 //................DSU.....................
 
 class DSU{
@@ -318,10 +319,31 @@ I trins(I l,I r){
   }
 }
 
+//.....................Dijkstra's Algorithm...............
+
+void djik(I x,I n,I dis[],V(P(I,I)) gr[]){
+  OMM(I,I) mpp;
+  I vis[n+1]={};
+  mpp.insert(mp(0,x));
+  while(sz(mpp)){
+    A it=mpp.begin();
+    I w=(*it).fi;
+    I y=(*it).se;
+    mpp.erase(it);
+    if(vis[y]==0){
+      vis[y]=1;
+      dis[y]=w;
+      asc(i,0,sz(gr[y])){
+        mpp.insert(mp(w+gr[y][i].se,gr[y][i].fi));
+      }
+    }
+  }
+}
 
 
 
 //.......................Main........................
+
 int main(){
   ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
   #ifndef ONLINE_JUDGE
