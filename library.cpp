@@ -103,6 +103,18 @@ I mod(I a,I b,I m){
   return (a*c)%m;
 }
 
+//...............Combination.....................
+
+I ncr(I n,I r,I fact[],I m){
+  if(n<0 || r<0){
+    return 0;
+  }
+  if(n<r){
+    return 0;
+  }
+  return mod(fact[n],fact[n-r]*fact[r],m);
+}
+
 //.............Segment Tree..................
 
 class seg{
