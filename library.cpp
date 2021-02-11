@@ -352,6 +352,34 @@ void djik(I x,I n,I dis[],V(P(I,I)) gr[]){
   }
 }
 
+//......................Prime Sieve..................
+
+void sieve(I n,I pf[],V(I) &prm,I r[]){
+  asc(i,0,n){
+    pf[i]=0;
+  }
+  //....start...
+  asc(i,0,n){
+    r[i]=i;
+  }
+  //....end.....
+  asc(i,2,n){
+    if(pf[i]==0){
+      prm.pb(i);
+      I x=i;
+      I k=i*i;
+      while(x<n){
+        pf[i]++;
+        //....start....
+        while(r[x]%k==0){
+          r[x]/=k;
+        }
+        //....end......
+        x+=i;
+      }
+    }
+  }
+}
 
 
 //.......................Main........................
