@@ -229,9 +229,10 @@ I mntree(V(P(I,I)) gr[],V(P(I,I)) tr[],I n){
 //................Convex Hull....................
 
 I pos(P(I,I) a, P(I,I) b, P(I,I) c){
-  if(a.fi*(b.se-c.se)+b.fi*(c.se-a.se)+c.fi*(a.se-b.se)<0){
+  I k=a.fi*(b.se-c.se)+b.fi*(c.se-a.se)+c.fi*(a.se-b.se);
+  if(k<0){
     return 1;
-  }else if(a.fi*(b.se-c.se)+b.fi*(c.se-a.se)+c.fi*(a.se-b.se)>0){
+  }else if(k>0){
     return -1;
   }else{
     return 0;
