@@ -401,6 +401,7 @@ void piarr(string &s,I p[]) {
 //.......................Main........................
 
 int main(){
+  srand(time(NULL));
   ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
   #ifndef ONLINE_JUDGE
   freopen("input.txt", "r", stdin);
