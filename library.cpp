@@ -384,7 +384,7 @@ void sieve(I n,I pf[],V(I) &prm,I r[]){
 
 //.......................KMP.........................
 
-void piarr(string &s,I p[]) {
+void piarr(S &s,I p[]) {
   p[0]=0;
   asc(i,1,sz(s)){
     I j=p[i-1];
