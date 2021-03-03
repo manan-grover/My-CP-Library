@@ -384,7 +384,7 @@ void sieve(I n,I pf[],V(I) &prm,I r[]){
 
 //.......................KMP.........................
 
-void piarr(S &s,I p[]) {
+void lps(S &s,I p[]) {
   p[0]=0;
   asc(i,1,sz(s)){
     I j=p[i-1];
@@ -395,6 +395,28 @@ void piarr(S &s,I p[]) {
       j++;
     }
     p[i]=j;
+  }
+}
+
+//.....................Z Function....................
+
+void zfn(S &s,I z[]) {
+  asc(i,0,sz(s)){
+    z[i]=0;
+  }
+  I l=0;
+  I r=0;
+  asc(i,0,sz(s)){
+    if(i<=r){
+      z[i]=min(r-i+1,z[i-l]);
+    }
+    while(i+z[i]<sz(s) && s[z[i]]==s[i+z[i]]){
+      z[i]++;
+    }
+    if(i+z[i]-1>r){
+      l=i;
+      r=i+z[i]-1;
+    }
   }
 }
 
