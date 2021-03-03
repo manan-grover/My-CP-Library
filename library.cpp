@@ -406,7 +406,8 @@ void zfn(S &s,I z[]) {
   }
   I l=0;
   I r=0;
-  asc(i,0,sz(s)){
+  z[0]=sz(s);
+  asc(i,1,sz(s)){
     if(i<=r){
       z[i]=min(r-i+1,z[i-l]);
     }
