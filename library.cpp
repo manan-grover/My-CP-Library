@@ -370,7 +370,7 @@ void sieve(I n,I pf[],V(I) &prm,I r[]){
       I x=i;
       I k=i*i;
       while(x<n){
-        pf[i]++;
+        pf[x]++;
         //....start....
         while(r[x]%k==0){
           r[x]/=k;
