@@ -420,6 +420,7 @@ void zfn(S &s,I z[]) {
     }
   }
 }
+
 //....................Round.........................
 
 D round(D x,I l){
@@ -428,6 +429,52 @@ D round(D x,I l){
   round(x);
   x/=l;
   return x;
+}
+
+//.................Mos Algorithm......................
+
+I bl;
+B moscomp(P(P(I,I),I) a,P(P(I,I),I) b){
+  if(a.fi.fi/bl == b.fi.fi/bl){
+    return a.fi.se<b.fi.se;
+  }else{
+    return a.fi.fi/bl<b.fi.fi/bl;
+  }
+}
+void mos(P(P(I,I),I) qr[],I q,I n,I ans[],I a[]){
+  bl=ceil(sqrt(n));
+  sort(qr,qr+q,moscomp);
+  I l=-1;
+  I r=-1;
+  asc(i,0,q){
+    while(qr[i].fi.fi<l){
+      //.....start......
+      //add a[l]
+      //......end.......
+      l--;
+    }
+    while(qr[i].fi.se>r){
+      r++;
+      //.....start......
+      //add a[r]
+      //......end.......
+    }
+    while(qr[i].fi.fi>l){
+      l++;
+      //.....start......
+      //rem a[l]
+      //......end.......
+    }
+    while(qr[i].fi.se<r){
+      //.....start......
+      //rem a[r]
+      //......end.......
+      r--;
+    }
+    //.....start.........
+    ans[qr[i].se]=0;
+    //......end..........
+  }
 }
 
 //.......................Main........................
