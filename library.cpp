@@ -554,19 +554,22 @@ public:
     if(v==t){
       return pushed;
     }
-    asc(i,ptr[v],sz(adj[v])){
-      I id=adj[v][i];
+    while(ptr[v]<sz(adj[v])){
+      I id=adj[v][ptr[v]];
       I u=edges[id].u;
       if(level[v]+1!=level[u] || edges[id].cap-edges[id].flow<1){
+        ptr[v]++;
         continue;
       }
       I tr=dfs(u,min(pushed,edges[id].cap-edges[id].flow));
       if(tr==0){
+        ptr[v]++;
         continue;
       }
       edges[id].flow+=tr;
       edges[id^1].flow-=tr;
       return tr;
+      ptr[v]++;
     }
     return 0;
   }
