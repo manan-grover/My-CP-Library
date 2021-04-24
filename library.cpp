@@ -515,7 +515,7 @@ public:
     temp.cap=0;
     edges.pb(temp);
     edge_adr.insert(mp(mp(v,u),m));
-    edge_adr.insert(mp(mp(v,u),m+1));
+    edge_adr.insert(mp(mp(u,v),m+1));
     adj[v].pb(m);
     adj[u].pb(m+1);
     m+=2;
