@@ -485,7 +485,7 @@ public:
   struct FlowEdge{
     I v,u;
     I cap;
-    I flow = 0;
+    I flow=0;
     //v--cap-->u
   };
   OM(P(I,I),I) edge_adr;
@@ -504,7 +504,7 @@ public:
     level.resize(n);
     ptr.resize(n);
   }
-  void add_edge(I v,I u,I cap) {
+  void add_edge(I v,I u,I cap){
     FlowEdge temp;
     temp.v=v;
     temp.u=u;
@@ -518,7 +518,7 @@ public:
     edge_adr.insert(mp(mp(v,u),m+1));
     adj[v].pb(m);
     adj[u].pb(m+1);
-    m += 2;
+    m+=2;
   }
   void uni_edge(I v,I u,I cap){
     A it=edge_adr.find(mp(v,u));
@@ -547,7 +547,7 @@ public:
     }
     return level[t]!=-1;
   }
-  I dfs(I v, I pushed) {
+  I dfs(I v,I pushed){
     if(pushed==0){
       return 0;
     }
@@ -564,17 +564,17 @@ public:
       if(tr==0){
         continue;
       }
-      edges[id].flow += tr;
-      edges[id^1].flow -= tr;
+      edges[id].flow+=tr;
+      edges[id^1].flow-=tr;
       return tr;
     }
     return 0;
   }
   I flow(){
-    I f = 0;
+    I f=0;
     while(1){
-      fill(all(level), -1);
-      level[s] = 0;
+      fill(all(level),-1);
+      level[s]=0;
       q.push(s);
       if(!bfs()){
         break;
