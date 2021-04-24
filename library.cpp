@@ -39,6 +39,7 @@ using namespace __gnu_pbds;
 #define OMM(x,y) multimap<x,y>
 #define UMM(x,y) unordered_multimap<x,y>
 #define L(x) list<x>
+#define Q(x) queue<x>
 #define PBS(x) tree<x,null_type,less<I>,rb_tree_tag,tree_order_statistics_node_update>
 #define PBM(x,y) tree<x,y,less<I>,rb_tree_tag,tree_order_statistics_node_update>
 #define pi (D)acos(-1)
@@ -476,6 +477,125 @@ void mos(P(P(I,I),I) qr[],I q,I n,I ans[],I a[]){
     //......end..........
   }
 }
+
+//..................Dinic Maximum Flow................
+
+class dinic{
+public:
+  struct FlowEdge{
+    I v,u;
+    I cap;
+    I flow = 0;
+    //v--cap-->u
+  };
+  OM(P(I,I),I) edge_adr;
+  V(FlowEdge) edges;
+  V(V(I)) adj;
+  I n;
+  I m=0;
+  I s,t;
+  V(I) level,ptr;
+  Q(I) q;
+  dinic(I n,I s,I t){
+    this->n=n;
+    this->s=s;
+    this->t=t;
+    adj.resize(n);
+    level.resize(n);
+    ptr.resize(n);
+  }
+  void add_edge(I v,I u,I cap) {
+    FlowEdge temp;
+    temp.v=v;
+    temp.u=u;
+    temp.cap=cap;
+    edges.pb(temp);
+    temp.v=u;
+    temp.u=v;
+    temp.cap=0;
+    edges.pb(temp);
+    edge_adr.insert(mp(mp(v,u),m));
+    edge_adr.insert(mp(mp(v,u),m+1));
+    adj[v].pb(m);
+    adj[u].pb(m+1);
+    m += 2;
+  }
+  void uni_edge(I v,I u,I cap){
+    A it=edge_adr.find(mp(v,u));
+    if(it==edge_adr.end()){
+      add_edge(v,u,cap);
+    }else{
+      edges[(*it).se].cap=cap;
+    }
+  }
+  B bfs(){
+    while(!q.empty()){
+      int v = q.front();
+      q.pop();
+      I id;
+      asc(i,0,sz(adj[v])){
+        id=adj[v][i];
+        if(edges[id].cap-edges[id].flow<1){
+          continue;
+        }
+        if(level[edges[id].u]!=-1){
+          continue;
+        }
+        level[edges[id].u]=level[v]+1;
+        q.push(edges[id].u);
+      }
+    }
+    return level[t]!=-1;
+  }
+  I dfs(I v, I pushed) {
+    if(pushed==0){
+      return 0;
+    }
+    if(v==t){
+      return pushed;
+    }
+    asc(i,ptr[v],sz(adj[v])){
+      I id=adj[v][i];
+      I u=edges[id].u;
+      if(level[v]+1!=level[u] || edges[id].cap-edges[id].flow<1){
+        continue;
+      }
+      I tr=dfs(u,min(pushed,edges[id].cap-edges[id].flow));
+      if(tr==0){
+        continue;
+      }
+      edges[id].flow += tr;
+      edges[id^1].flow -= tr;
+      return tr;
+    }
+    return 0;
+  }
+  I flow(){
+    I f = 0;
+    while(1){
+      fill(all(level), -1);
+      level[s] = 0;
+      q.push(s);
+      if(!bfs()){
+        break;
+      }
+      fill(all(ptr),0);
+      I pushed;
+      while(1){
+        pushed=dfs(s,LLONG_MAX);
+        if(pushed){
+          f+=pushed;
+        }else{
+          break;
+        }
+      }
+    }
+    asc(i,0,sz(edges)){
+      edges[i].flow=0;
+    }
+    return f;
+  }
+};
 
 //.......................Main........................
 
