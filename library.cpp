@@ -53,7 +53,7 @@ private:
   V(I) size;
 public:
   DSU(I n){
-    asc(i,0,n+1){
+    asc(i,0,n){
       parent.pb(i);
       size.pb(1);
     }
@@ -202,7 +202,7 @@ public:
 I mntree(V(P(I,I)) gr[],V(P(I,I)) tr[],I n){
   DSU d(n);
   OS(P(I,P(I,I))) s;
-  asc(i,1,n+1){
+  asc(i,0,n){
     asc(j,0,sz(gr[i])){
       s.insert({gr[i][j].se,{i,gr[i][j].fi}});
     }
@@ -337,7 +337,7 @@ I trins(I l,I r){
 
 void djik(I x,I n,I dis[],V(P(I,I)) gr[]){
   OMM(I,I) mpp;
-  I vis[n+1]={};
+  I vis[n]={};
   mpp.insert(mp(0,x));
   while(sz(mpp)){
     A it=mpp.begin();
@@ -597,6 +597,64 @@ public:
       edges[i].flow=0;
     }
     return f;
+  }
+};
+
+//......Lowest Common Ancistor(LCA) & Binary Lifting.......
+
+class binl{
+public:
+  V(I) lvl;
+  V(V(I)) anc;
+  void dfs(I x,I pr,V(I) tr[]){
+    if(pr==-1){
+      lvl[x]=0;
+    }else{
+      lvl[x]=lvl[pr]+1;
+      anc[x].pb(pr);
+      I curr=0;
+      while(curr<sz(anc[anc[x].back()])){
+        anc[x].pb(anc[anc[x].back()][curr]);
+        curr++;
+      }
+    }
+    asc(i,0,sz(tr[x])){
+      if(tr[x][i]!=pr){
+        dfs(tr[x][i],x,tr);
+      }
+    }
+  }
+  binl(I n,V(I) tr[],I x){
+    anc.resize(n);
+    lvl.resize(n);
+    dfs(x,-1,tr);
+  }
+  I lca(I u,I v){
+    if(lvl[u]<lvl[v]){
+      swap(u,v);
+    }
+    I cnt=0;
+    I m=lvl[u]-lvl[v];
+    while(m){
+      if(m%2){
+        u=anc[u][cnt];
+      }
+      cnt++;
+      m/=2;
+    }
+    if(u==v){
+      return u;
+    }
+    I k=sz(anc[u]);
+    dsc(i,0,k){
+      if(i<sz(anc[u])){
+        if(anc[u][i]!=anc[v][i]){
+          u=anc[u][i];
+          v=anc[v][i];
+        }
+      }
+    }
+    return anc[u][0];
   }
 };
 
