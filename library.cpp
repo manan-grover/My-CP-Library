@@ -239,10 +239,11 @@ I pos(P(I,I) a, P(I,I) b, P(I,I) c){
     return 0;
   }
 }
-void chull(V(P(I,I)) a,V(P(I,I)) &b,B f) {
-  if (a.size()==1){
-    b=a;
-    return;
+V(P(I,I)) chull(V(P(I,I)) a,B f){
+  //if f then include extra
+  V(P(I,I)) b;
+  if(a.size()==1){
+    return a;
   }
   I xx=0;
   if(f){
@@ -279,6 +280,33 @@ void chull(V(P(I,I)) a,V(P(I,I)) &b,B f) {
   dsc(i,1,sz(d)){
     b.pb(d[i]);
   }
+  return b;
+}
+
+//......................2*area...................
+
+D areaX2(V(P(I,I)) v){
+  if(sz(v)<3){
+    return 0;
+  }
+  I ans=0;
+  asc(i,1,sz(v)-1){
+    I temp=abs(v[0].fi*v[i].se+v[i].fi*v[i+1].se+v[i+1].fi*v[0].se-v[0].se*v[i].fi-v[i].se*v[i+1].fi-v[i+1].se*v[0].fi);
+    if(pos(v[0],v[i],v[i+1])==1){
+      ans+=temp;
+    }else{
+      ans-=temp;
+    }
+  }
+  ans=abs(ans);
+  return ans;
+}
+
+//.................distance squared.................
+
+I dis2(P(I,I) a,P(I,I) b){
+  I ans=(a.fi-b.fi)*(a.fi-b.fi)+(a.se-b.se)*(a.se-b.se);
+  return ans;
 }
 
 //....................Binary Search................
@@ -655,6 +683,9 @@ public:
       }
     }
     return anc[u][0];
+  }
+  I dis(I u,I v){
+    return lvl[u]+lvl[v]-2*lvl[lca(u,v)];
   }
 };
 
